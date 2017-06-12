@@ -99,6 +99,13 @@ class DatabaseWrapper(BaseDatabaseWrapper):
 
     Database = Database
     SchemaEditorClass = DatabaseSchemaEditor
+    client_class = BaseDatabaseClient
+    creation_class = DatabaseCreation
+    features_class = DatabaseFeatures
+    introspection_class = DatabaseIntrospection
+    ops_class = DatabaseOperations
+    validation_class = BaseDatabaseValidation
+
 
     operators = {
         "exact": "= %s",
@@ -203,7 +210,7 @@ class DatabaseWrapper(BaseDatabaseWrapper):
 
         self.features = DatabaseFeatures(self)
         self.ops = DatabaseOperations(self)
-        self.client_class = BaseDatabaseClient(self)
+        self.client = BaseDatabaseClient(self)
         self.creation = DatabaseCreation(self)
         self.introspection = DatabaseIntrospection(self)
         self.validation = BaseDatabaseValidation(self)
@@ -254,7 +261,7 @@ class DatabaseWrapper(BaseDatabaseWrapper):
                     "django-mssql and not officially supported/maintained.",
                     DeprecationWarning)
 
-    def create_cursor(self):
+    def create_cursor(self, name=None):
         """Creates a cursor. Assumes that a connection is established."""
         cursor = self.connection.cursor()
         return cursor
