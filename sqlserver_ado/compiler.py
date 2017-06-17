@@ -43,7 +43,6 @@ class SQLCompiler(compiler.SQLCompiler):
             sql, fields = super(SQLCompiler, self).as_sql(
                 with_limits=False,
                 with_col_aliases=with_col_aliases,
-                subquery=subquery,
             )
 
             if has_limit_offset:
