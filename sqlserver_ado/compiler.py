@@ -29,7 +29,7 @@ _re_constant = re.compile(r'\s*\(?\s*\d+\s*\)?\s*')
 
 class SQLCompiler(compiler.SQLCompiler):
 
-    def as_sql(self, with_limits=True, with_col_aliases=False, subquery=False):
+    def as_sql(self, with_limits=True, with_col_aliases=False):
         # Get out of the way if we're not a select query or there's no limiting involved.
         has_limit_offset = with_limits and (self.query.low_mark or self.query.high_mark is not None)
         try:
